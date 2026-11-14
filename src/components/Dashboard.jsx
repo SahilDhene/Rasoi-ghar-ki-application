@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useLang } from '../lib/i18n'
 import { useGroceryItems } from '../hooks/useGroceryItems'
+import { STATUS_RANK, stockStatus } from '../lib/stock'
 import LowStockAlert from './LowStockAlert'
 import FilterBar from './FilterBar'
 import SortToggle from './SortToggle'
@@ -10,11 +11,7 @@ import ShoppingMode from './ShoppingMode'
 import { CartIcon, PlusIcon } from './Icons'
 import s from './Dashboard.module.css'
 
-// 0 = empty, 1 = low (≤25%), 2 = stocked — used to sort most-urgent first
-function urgency(quantity, max) {
-  if (quantity === 0) return 0
-  return quantity / max <= 0.25 ? 1 : 2
-}
+const status = (i) => stockStatus(i.quantity, i.max_quantity)
 
 export default function Dashboard({ role, householdId }) {
   const { t } = useLang()
@@ -23,20 +20,32 @@ export default function Dashboard({ role, householdId }) {
   const [sortMode, setSortMode] = useState('status')
   const [showAdd, setShowAdd] = useState(false)
   const [showShopping, setShowShopping] = useState(false)
+  const [toast, setToast] = useState(null)
 
-  const needToBuy = useMemo(
-    () => items.filter((i) => i.quantity === 0 || i.quantity / i.max_quantity <= 0.25),
-    [items],
-  )
+  useEffect(() => {
+    if (!toast) return
+    const timer = setTimeout(() => setToast(null), 4000)
+    return () => clearTimeout(timer)
+  }, [toast])
+
+  // Failed saves were silent before (the change just vanished); now they show a toast.
+  // rethrow=true for callers that need to know it failed (shopping mode keeps its sheet open).
+  const reportErrors =
+    (fn, rethrow = false) =>
+    async (...args) => {
+      try {
+        return await fn(...args)
+      } catch (e) {
+        setToast(e.message)
+        if (rethrow) throw e
+      }
+    }
+
+  const needToBuy = useMemo(() => items.filter((i) => status(i) !== 'stocked'), [items])
 
   const visible = useMemo(() => {
-    let list = [...items]
-    if (filter === 'empty') list = list.filter((i) => i.quantity === 0)
-    else if (filter === 'low') list = list.filter((i) => i.quantity > 0 && i.quantity / i.max_quantity <= 0.25)
-    else if (filter === 'stocked') list = list.filter((i) => i.quantity / i.max_quantity > 0.25)
-
-    if (sortMode === 'status')
-      list.sort((a, b) => urgency(a.quantity, a.max_quantity) - urgency(b.quantity, b.max_quantity))
+    const list = filter === 'all' ? [...items] : items.filter((i) => status(i) === filter)
+    if (sortMode === 'status') list.sort((a, b) => STATUS_RANK[status(a)] - STATUS_RANK[status(b)])
     else list.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
     return list
   }, [items, filter, sortMode])
@@ -71,9 +80,9 @@ export default function Dashboard({ role, householdId }) {
               item={item}
               index={i}
               role={role}
-              onUpdateQuantity={updateQuantity}
-              onUpdateNote={updateNote}
-              onDelete={deleteItem}
+              onUpdateQuantity={reportErrors(updateQuantity)}
+              onUpdateNote={reportErrors(updateNote)}
+              onDelete={reportErrors(deleteItem)}
             />
           ))}
         </div>
@@ -94,7 +103,17 @@ export default function Dashboard({ role, householdId }) {
         <AddItemModal onAdd={addItem} onClose={() => setShowAdd(false)} existingNames={items.map((i) => i.name)} />
       )}
       {showShopping && (
-        <ShoppingMode items={needToBuy} onUpdateQuantity={updateQuantity} onClose={() => setShowShopping(false)} />
+        <ShoppingMode
+          items={needToBuy}
+          onUpdateQuantity={reportErrors(updateQuantity, true)}
+          onClose={() => setShowShopping(false)}
+        />
+      )}
+
+      {toast && (
+        <div className={s.toast} role="alert">
+          {toast}
+        </div>
       )}
     </div>
   )

@@ -104,6 +104,9 @@ export const translations = {
     cat_Pooja: "Pooja Samagri",
     cat_Cleaning: "Cleaning & Household",
     cat_Other: "Other",
+    confirm_delete: "Tap again to delete",
+    connect_error: "Couldn't connect. Check your internet.",
+    retry: "Retry",
   },
   hi: {
     login_subtitle: "मिलकर रसोई संभालें",
@@ -209,6 +212,9 @@ export const translations = {
     cat_Pooja: "पूजा सामग्री",
     cat_Cleaning: "सफ़ाई व घरेलू सामान",
     cat_Other: "अन्य",
+    confirm_delete: "हटाने के लिए फिर से दबाएं",
+    connect_error: "कनेक्ट नहीं हो सका। इंटरनेट जांचें।",
+    retry: "फिर से कोशिश करें",
   },
   mr: {
     login_subtitle: "एकत्र स्वयंपाकघर सांभाळा",
@@ -315,5 +321,8 @@ export const translations = {
     cat_Pooja: "पूजा साहित्य",
     cat_Cleaning: "स्वच्छता व घरगुती",
     cat_Other: "इतर",
+    confirm_delete: "हटवण्यासाठी पुन्हा दाबा",
+    connect_error: "कनेक्ट होऊ शकले नाही. इंटरनेट तपासा.",
+    retry: "पुन्हा प्रयत्न करा",
   },
 }

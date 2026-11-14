@@ -3,6 +3,7 @@ import { useLang } from '../lib/i18n'
 import StockBar from './StockBar'
 import Emoji from './Emoji'
 import { categoryLabel, getCategory } from '../lib/categories'
+import { stockStatus } from '../lib/stock'
 import {
   AlertCircleIcon, AppleIcon, BottleIcon, BowlIcon, BoxIcon, CartIcon, CheckCircleIcon, CupIcon, DiyaIcon,
   DropletIcon, FlameIcon, LayersIcon, LeafIcon, MinusIcon, PackageIcon, PencilIcon, PlusIcon,
@@ -32,11 +33,6 @@ const STATUS = {
   empty: { labelKey: 'status_empty', Icon: XCircleIcon },
 }
 
-function stockStatus(quantity, max) {
-  if (quantity === 0) return 'empty'
-  return quantity / max <= 0.25 ? 'low' : 'stocked'
-}
-
 export default function ItemCard({ item, index = 0, role, onUpdateQuantity, onUpdateNote, onDelete }) {
   const { t } = useLang()
   const { id, emoji, name, category, quantity, max_quantity, unit, note } = item
@@ -45,6 +41,14 @@ export default function ItemCard({ item, index = 0, role, onUpdateQuantity, onUp
   const { labelKey, Icon: StatusIcon } = STATUS[status]
   const [editingNote, setEditingNote] = useState(false)
   const [draft, setDraft] = useState(note ?? '')
+  // delete needs a second tap within 3s — one stray tap shouldn't wipe an item for the whole family
+  const [deleteArmed, setDeleteArmed] = useState(false)
+
+  useEffect(() => {
+    if (!deleteArmed) return
+    const timer = setTimeout(() => setDeleteArmed(false), 3000)
+    return () => clearTimeout(timer)
+  }, [deleteArmed])
 
   // keep draft in sync with realtime updates while not editing
   useEffect(() => {
@@ -136,8 +140,13 @@ export default function ItemCard({ item, index = 0, role, onUpdateQuantity, onUp
             >
               <PlusIcon size={14} />
             </button>
-            <button className={`${s.ctrlBtn} ${s.deleteBtn}`} onClick={() => onDelete(id)} aria-label="Delete">
-              <TrashIcon size={14} />
+            <button
+              className={`${s.ctrlBtn} ${s.deleteBtn} ${deleteArmed ? s.deleteArmed : ''}`}
+              onClick={() => (deleteArmed ? onDelete(id) : setDeleteArmed(true))}
+              aria-label={deleteArmed ? t('confirm_delete') : 'Delete'}
+              title={deleteArmed ? t('confirm_delete') : undefined}
+            >
+              <TrashIcon size={14} className={deleteArmed ? 'fi-on' : ''} />
             </button>
           </div>
         )}
