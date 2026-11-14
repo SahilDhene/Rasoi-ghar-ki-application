@@ -1,0 +1,346 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #0000008c;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 100;
+}
+
+@media (min-width: 520px) {
+  .overlay {
+    align-items: center;
+    padding: 1.5rem;
+  }
+}
+
+.modal {
+  background: var(--color-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  width: 100%;
+  max-width: 460px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  box-shadow: var(--shadow-dropdown);
+  max-height: 90vh;
+  overflow-y: auto;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+@media (min-width: 520px) {
+  .modal {
+    border-radius: var(--radius);
+    max-height: 85vh;
+  }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.closeBtn {
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+
+.closeBtn:hover {
+  color: var(--color-text);
+  background: var(--color-surface-2);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.emojiRow {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.emojiTrigger {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  border: 1.5px dashed var(--color-border-hover);
+  background: var(--color-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    transform 0.1s;
+}
+
+.emojiTrigger:hover {
+  border-color: var(--color-primary);
+  background: var(--color-surface-2);
+  transform: scale(1.05);
+}
+
+.emojiPreview {
+  font-size: 1.625rem;
+  line-height: 1;
+}
+
+.emojiMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.emojiLabel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.emojiChange {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  text-align: left;
+  padding: 0;
+  transition: color 0.15s;
+}
+
+.emojiChange:hover {
+  color: var(--color-primary-hover);
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.input {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.55rem 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  outline: none;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+  width: 100%;
+}
+
+.input:focus {
+  border-color: var(--color-primary);
+  background: var(--color-surface-2);
+}
+
+.input option {
+  background: var(--color-elevated);
+  color: var(--color-text);
+}
+
+.row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.error {
+  font-size: 0.8125rem;
+  color: var(--color-red);
+  background: var(--color-red-bg);
+  border: 1px solid var(--color-red-border);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 0.25rem;
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: 0.625rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-sub);
+  background: transparent;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.cancelBtn:hover {
+  background: var(--color-surface-2);
+  border-color: var(--color-border-hover);
+}
+
+.saveBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.625rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-primary);
+  transition:
+    background 0.15s,
+    box-shadow 0.15s;
+}
+
+.saveBtn:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+  box-shadow: 0 4px 16px var(--color-primary-glow);
+}
+
+.saveBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pickerOverlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #00000080;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+}
+
+@media (min-width: 520px) {
+  .pickerOverlay {
+    align-items: center;
+  }
+}
+
+.pickerSheet {
+  background: var(--color-elevated);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  max-height: 82vh;
+  box-shadow: var(--shadow-dropdown);
+  overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+
+@media (min-width: 520px) {
+  .pickerSheet {
+    border-top: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    max-height: 530px;
+  }
+}
+
+.pickerHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.pickerTitle {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.pickerClose {
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+
+.pickerClose:hover {
+  color: var(--color-text);
+  background: var(--color-surface-2);
+}
+
+.pickerBody {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.pickerBody em-emoji-picker {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+  flex: 1;
+  border: none !important;
+  --border-radius: 0px;
+  --shadow: none;
+}
+
+.pickerLoading {
+  padding: 3rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
