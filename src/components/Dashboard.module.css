@@ -110,3 +110,35 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.fab {
+  animation: fabIn 0.4s var(--curve-spring) 0.15s backwards;
+}
+
+@keyframes fabIn {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+.fab :global(.fi) {
+  transition: transform var(--dur-slow) var(--curve-decelerate);
+}
+
+.fab:not(.fabCart):hover :global(.fi) {
+  transform: rotate(90deg);
+}
+
+.fabCart:hover :global(.fi) {
+  animation: cartNudge 0.5s var(--curve-decelerate);
+}
+
+@keyframes cartNudge {
+  30% {
+    transform: translateX(-3px) rotate(-8deg);
+  }
+  60% {
+    transform: translateX(3px);
+  }
+}

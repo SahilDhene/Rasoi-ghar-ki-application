@@ -1,5 +1,5 @@
 import { useLang } from '../lib/i18n'
-import { CookingPotIcon, GoogleIcon } from './Icons'
+import { GoogleIcon } from './Icons'
 import s from './LoginPage.module.css'
 
 const LANGUAGES = [
@@ -14,9 +14,7 @@ export default function LoginPage({ onSignIn }) {
   return (
     <div className={s.page}>
       <div className={s.card}>
-        <div className={s.logoMark}>
-          <CookingPotIcon size={28} />
-        </div>
+        <img src="/logo.svg" alt="" className={s.logoMark} />
         <h1 className={s.title}>Ghar Ki Rasoi</h1>
         <p className={s.sub}>{t('login_subtitle')}</p>
         <button className={s.googleBtn} onClick={onSignIn}>

@@ -1,170 +1,88 @@
-// Hand-drawn stroke icons (24×24 viewBox, Feather-style).
-const DEFAULT_SIZE = 20
+// Microsoft Fluent System Icons (MIT) — each icon renders its Regular + Filled variant;
+// CSS in index.css cross-fades to Filled on hover/focus or when given className "fi-on".
+import {
+  Add24Filled, Add24Regular, ArrowSortDownLines24Filled, ArrowSortDownLines24Regular,
+  BowlSalad24Filled, BowlSalad24Regular, Box24Filled, Box24Regular, Cart24Filled, Cart24Regular,
+  CheckmarkCircle24Filled, CheckmarkCircle24Regular, Cookies24Filled, Cookies24Regular,
+  Delete24Filled, Delete24Regular, Dismiss24Filled, Dismiss24Regular, DismissCircle24Filled,
+  DismissCircle24Regular, Drop24Filled, Drop24Regular, DrinkCoffee24Filled, DrinkCoffee24Regular,
+  Edit24Filled, Edit24Regular, ErrorCircle24Filled, ErrorCircle24Regular, Fire24Filled, Fire24Regular,
+  FoodApple24Filled, FoodApple24Regular, FoodCarrot24Filled, FoodCarrot24Regular, FoodEgg24Filled,
+  FoodEgg24Regular, FoodGrains24Filled, FoodGrains24Regular, Home24Filled, Home24Regular,
+  PersonAdd24Filled, PersonAdd24Regular, Settings24Filled, Settings24Regular, SignOut24Filled,
+  SignOut24Regular, Sparkle24Filled, Sparkle24Regular, Subtract24Filled, Subtract24Regular,
+  TextSortAscending24Filled, TextSortAscending24Regular, Warning24Filled, Warning24Regular,
+  WeatherMoon24Filled, WeatherMoon24Regular, WeatherSunny24Filled, WeatherSunny24Regular,
+} from '@fluentui/react-icons'
 
-function Svg({ size, strokeWidth, children, className }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      {children}
-    </svg>
-  )
-}
-
-const icon = (strokeWidth, children) =>
-  function Icon({ size = DEFAULT_SIZE, className }) {
+function fluent(Regular, Filled) {
+  return function Icon({ size = 20, className = '' }) {
     return (
-      <Svg size={size} strokeWidth={strokeWidth} className={className}>
-        {children}
-      </Svg>
+      <span className={`fi ${className}`} style={{ fontSize: size }} aria-hidden="true">
+        <Regular className="fi-r" />
+        <Filled className="fi-f" />
+      </span>
     )
   }
+}
 
-export const HomeIcon = icon(1.75, <>
-  <path d="M3 12L12 3l9 9" />
-  <path d="M9 21V12h6v9" />
-  <path d="M5 10v11h14V10" />
-</>)
+export const HomeIcon = fluent(Home24Regular, Home24Filled)
+export const PlusIcon = fluent(Add24Regular, Add24Filled)
+export const MinusIcon = fluent(Subtract24Regular, Subtract24Filled)
+export const TrashIcon = fluent(Delete24Regular, Delete24Filled)
+export const CloseIcon = fluent(Dismiss24Regular, Dismiss24Filled)
+export const LogOutIcon = fluent(SignOut24Regular, SignOut24Filled)
+export const AlertTriangleIcon = fluent(Warning24Regular, Warning24Filled)
+export const CheckCircleIcon = fluent(CheckmarkCircle24Regular, CheckmarkCircle24Filled)
+export const AlertCircleIcon = fluent(ErrorCircle24Regular, ErrorCircle24Filled)
+export const XCircleIcon = fluent(DismissCircle24Regular, DismissCircle24Filled)
+export const SortStatusIcon = fluent(ArrowSortDownLines24Regular, ArrowSortDownLines24Filled)
+export const SortAlphaIcon = fluent(TextSortAscending24Regular, TextSortAscending24Filled)
+export const CartIcon = fluent(Cart24Regular, Cart24Filled)
+export const UserPlusIcon = fluent(PersonAdd24Regular, PersonAdd24Filled)
+export const SunIcon = fluent(WeatherSunny24Regular, WeatherSunny24Filled)
+export const MoonIcon = fluent(WeatherMoon24Regular, WeatherMoon24Filled)
+export const SettingsIcon = fluent(Settings24Regular, Settings24Filled)
+export const PencilIcon = fluent(Edit24Regular, Edit24Filled)
+export const FlameIcon = fluent(Fire24Regular, Fire24Filled)
+export const SparkleIcon = fluent(Sparkle24Regular, Sparkle24Filled)
 
-export const PlusIcon = icon(2, <path d="M12 5v14M5 12h14" />)
-export const MinusIcon = icon(2, <path d="M5 12h14" />)
+// category icons
+export const LeafIcon = fluent(FoodCarrot24Regular, FoodCarrot24Filled)
+export const AppleIcon = fluent(FoodApple24Regular, FoodApple24Filled)
+export const DropletIcon = fluent(FoodEgg24Regular, FoodEgg24Filled)
+export const LayersIcon = fluent(FoodGrains24Regular, FoodGrains24Filled)
+export const BowlIcon = fluent(BowlSalad24Regular, BowlSalad24Filled)
+export const BottleIcon = fluent(Drop24Regular, Drop24Filled)
+export const CupIcon = fluent(DrinkCoffee24Regular, DrinkCoffee24Filled)
+export const PackageIcon = fluent(Cookies24Regular, Cookies24Filled)
+export const BoxIcon = fluent(Box24Regular, Box24Filled)
 
-export const TrashIcon = icon(1.75, <>
-  <polyline points="3 6 5 6 21 6" />
-  <path d="M19 6l-1 14H6L5 6" />
-  <path d="M10 11v6M14 11v6" />
-  <path d="M9 6V4h6v2" />
-</>)
+// Custom icons (no Fluent equivalent): drawn on the same 24px grid with a Fluent-like 1.5 stroke.
+function custom(children) {
+  return function Icon({ size = 20, className = '' }) {
+    return (
+      <span className={`fi ${className}`} style={{ fontSize: size }} aria-hidden="true">
+        <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          {children}
+        </svg>
+      </span>
+    )
+  }
+}
 
-export const CloseIcon = icon(2, <path d="M18 6L6 18M6 6l12 12" />)
-
-export const LogOutIcon = icon(1.75, <>
-  <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
-  <polyline points="16 17 21 12 16 7" />
-  <line x1="21" y1="12" x2="9" y2="12" />
-</>)
-
-export const AlertTriangleIcon = icon(1.75, <>
-  <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-  <line x1="12" y1="9" x2="12" y2="13" />
-  <line x1="12" y1="17" x2="12.01" y2="17" />
-</>)
-
-export const CheckCircleIcon = icon(1.75, <>
-  <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
-  <polyline points="22 4 12 14.01 9 11.01" />
-</>)
-
-export const AlertCircleIcon = icon(1.75, <>
-  <circle cx="12" cy="12" r="10" />
-  <line x1="12" y1="8" x2="12" y2="12" />
-  <line x1="12" y1="16" x2="12.01" y2="16" />
-</>)
-
-export const XCircleIcon = icon(1.75, <>
-  <circle cx="12" cy="12" r="10" />
-  <line x1="15" y1="9" x2="9" y2="15" />
-  <line x1="9" y1="9" x2="15" y2="15" />
-</>)
-
-export const LeafIcon = icon(1.75, <>
-  <path d="M17 8C8 10 5.9 16.17 3.82 19.5c-.67 1.11.04 2.5 1.18 2.5h14a2 2 0 002-2V8z" />
-  <path d="M3.82 19.5a10 10 0 0114.14-14" />
-</>)
-
-export const DropletIcon = icon(1.75, <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z" />)
-
-export const LayersIcon = icon(1.75, <>
-  <polygon points="12 2 2 7 12 12 22 7 12 2" />
-  <polyline points="2 17 12 22 22 17" />
-  <polyline points="2 12 12 17 22 12" />
-</>)
-
-export const FlameIcon = icon(1.75,
-  <path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 01-7 7 7 7 0 01-7-7c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z" />,
-)
-
-export const CupIcon = icon(1.75, <>
-  <path d="M17 8h1a4 4 0 010 8h-1" />
-  <path d="M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8z" />
-  <line x1="6" y1="2" x2="6" y2="4" />
-  <line x1="10" y1="2" x2="10" y2="4" />
-  <line x1="14" y1="2" x2="14" y2="4" />
-</>)
-
-export const PackageIcon = icon(1.75, <>
-  <line x1="16.5" y1="9.4" x2="7.5" y2="4.21" />
-  <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
-  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-  <line x1="12" y1="22.08" x2="12" y2="12" />
-</>)
-
-export const SortStatusIcon = icon(1.75, <>
-  <line x1="11" y1="5" x2="17" y2="5" />
-  <line x1="11" y1="9" x2="15" y2="9" />
-  <line x1="11" y1="13" x2="13" y2="13" />
-  <polyline points="8 15 4 19 8 23" />
-  <line x1="4" y1="19" x2="4" y2="5" />
-</>)
-
-export const SortAlphaIcon = icon(1.75, <>
-  <line x1="3" y1="7" x2="7" y2="3" />
-  <line x1="7" y1="3" x2="11" y2="7" />
-  <line x1="7" y1="3" x2="7" y2="21" />
-  <line x1="13" y1="21" x2="21" y2="21" />
-  <line x1="13" y1="17" x2="19" y2="17" />
-  <line x1="13" y1="13" x2="17" y2="13" />
-</>)
-
-export const CartIcon = icon(1.75, <>
-  <circle cx="9" cy="21" r="1" />
-  <circle cx="20" cy="21" r="1" />
-  <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6" />
-</>)
-
-export const UserPlusIcon = icon(1.75, <>
-  <path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2" />
-  <circle cx="9" cy="7" r="4" />
-  <line x1="19" y1="8" x2="19" y2="14" />
-  <line x1="22" y1="11" x2="16" y2="11" />
-</>)
-
-export const SunIcon = icon(1.75, <>
-  <circle cx="12" cy="12" r="4" />
-  <line x1="12" y1="2" x2="12" y2="4" />
-  <line x1="12" y1="20" x2="12" y2="22" />
-  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-  <line x1="2" y1="12" x2="4" y2="12" />
-  <line x1="20" y1="12" x2="22" y2="12" />
-  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-</>)
-
-export const MoonIcon = icon(1.75, <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />)
-
-export const SettingsIcon = icon(1.75, <>
-  <circle cx="12" cy="12" r="3" />
-  <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-</>)
-
-export const PencilIcon = icon(1.75, <path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z" />)
-
-export const CookingPotIcon = icon(2, <>
+// Rasoi logo mark
+export const CookingPotIcon = custom(<>
   <path d="M2 12h20" />
   <path d="M20 12v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8" />
   <path d="M4 12a2 2 0 010-4h16a2 2 0 010 4" />
   <path d="M12 4v4" />
   <path d="M10 4h4" />
+</>)
+
+export const DiyaIcon = custom(<>
+  <path d="M12 3c1.5 2 2 3.2 2 4.2a2 2 0 01-4 0C10 6.2 10.5 5 12 3z" />
+  <path d="M3 13h18c-1 4-4.5 6-9 6s-8-2-9-6z" />
 </>)
 
 export function WhatsAppIcon({ size = 20 }) {

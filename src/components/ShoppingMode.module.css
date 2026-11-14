@@ -253,3 +253,13 @@
     display: none;
   }
 }
+
+.overlay {
+  animation: fadeIn 0.18s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}

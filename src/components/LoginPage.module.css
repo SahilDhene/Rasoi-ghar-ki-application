@@ -142,3 +142,29 @@
     padding: 2rem 1.25rem;
   }
 }
+
+.card {
+  animation: riseIn 0.5s var(--curve-decelerate);
+}
+
+.googleBtn:active {
+  transform: scale(0.98);
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.logoMark {
+  animation: logoPop 0.6s var(--curve-spring) 0.1s backwards;
+}
+
+@keyframes logoPop {
+  from {
+    opacity: 0;
+    transform: scale(0.6) rotate(-8deg);
+  }
+}

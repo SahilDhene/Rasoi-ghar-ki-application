@@ -241,7 +241,9 @@ export default function Onboarding({ user, onComplete }) {
   return (
     <div className={s.page}>
       <div className={s.bgGlow} />
-      <div className={s.card}>{card}</div>
+      <div key={step} className={s.card}>
+        {card}
+      </div>
     </div>
   )
 }

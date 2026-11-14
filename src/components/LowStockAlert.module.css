@@ -76,3 +76,14 @@
 .waBtn:active {
   transform: scale(0.97);
 }
+
+.strip {
+  animation: stripIn 0.3s var(--curve-decelerate);
+}
+
+@keyframes stripIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}

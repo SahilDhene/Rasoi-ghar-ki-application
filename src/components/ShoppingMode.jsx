@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../lib/i18n'
 import { CheckCircleIcon, CloseIcon, MinusIcon, PlusIcon } from './Icons'
+import Emoji from './Emoji'
 import s from './ShoppingMode.module.css'
 
 // Bottom sheet for the shopper: set how much of each low item was bought, then restock in one go.
@@ -60,7 +61,7 @@ export default function ShoppingMode({ items, onUpdateQuantity, onClose }) {
                 const val = bought[item.id] ?? 0
                 return (
                   <div key={item.id} className={s.row}>
-                    <div className={s.itemEmoji}>{item.emoji || '🛒'}</div>
+                    <div className={s.itemEmoji}><Emoji char={item.emoji || '🛒'} /></div>
                     <div className={s.info}>
                       <span className={s.name}>{item.name}</span>
                       <span className={`${s.stock} ${item.quantity === 0 ? s.stockEmpty : ''}`}>

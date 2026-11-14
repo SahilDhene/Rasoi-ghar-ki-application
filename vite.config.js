@@ -8,7 +8,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'script',
-      includeAssets: ['icons/icon-192.png', 'icons/icon-512.png'],
+      includeAssets: ['logo.svg', 'icons/apple-touch-icon.png'],
       manifest: {
         name: 'Ghar Ki Rasoi',
         short_name: 'Rasoi',
@@ -21,11 +21,15 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          // full-bleed version: Android crops it into its own shape (circle, squircle…)
+          { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
         importScripts: ['/sw-push.js'],
+        // precache app shell + Fluent 3D emoji so the app works offline
+        globPatterns: ['**/*.{js,css,html,png,webp}'],
         navigateFallback: 'index.html',
         runtimeCaching: [
           {
@@ -36,20 +40,6 @@ export default defineConfig({
               networkTimeoutSeconds: 3,
               cacheableResponse: { statuses: [200] },
               expiration: { maxAgeSeconds: 300, maxEntries: 50 },
-            },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/,
-            handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'google-fonts-stylesheets' },
-          },
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
-              expiration: { maxEntries: 10, maxAgeSeconds: 31536000 },
-              cacheableResponse: { statuses: [0, 200] },
             },
           },
         ],

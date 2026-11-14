@@ -11,7 +11,7 @@ export default function EmojiPickerLazy({ onEmojiSelect, theme = 'dark' }) {
       previewPosition="none"
       skinTonePosition="search"
       set="native"
-      perLine={8}
+      dynamicWidth
     />
   )
 }

@@ -208,3 +208,57 @@
   padding: 0.28rem 0.5rem;
   outline: none;
 }
+
+/* cards rise in, staggered by --i (set from the list index) */
+.card {
+  animation: cardIn 0.35s var(--curve-decelerate) backwards;
+  animation-delay: calc(min(var(--i, 0), 12) * 30ms);
+}
+
+.ctrlBtn:active:not(:disabled) {
+  transform: scale(0.88);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+.card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.deleteBtn:hover :global(.fi) {
+  animation: wiggle 0.4s var(--curve-easy);
+}
+
+@keyframes wiggle {
+  25% {
+    transform: rotate(-12deg);
+  }
+  75% {
+    transform: rotate(12deg);
+  }
+}
+
+.card:hover :global(.emoji-img) {
+  transform: scale(1.12) rotate(-6deg);
+}
+
+/* Fluent card: shadow instead of outline; sentence-case badge */
+.card {
+  border-color: transparent;
+  box-shadow: var(--shadow-card);
+}
+
+.card:hover {
+  border-color: transparent;
+}
+
+.tag {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 0.75rem;
+}

@@ -21,6 +21,12 @@ npm run build    # outputs dist/ — deploy that folder
 - `src/components/` — UI, one CSS module per component
 - `public/sw-push.js` — push-notification handler imported by the generated service worker
 
+## Design
+
+Styled after Microsoft's Fluent 2 design language with Rasoi orange as the accent.
+Icons: [Fluent System Icons](https://github.com/microsoft/fluentui-system-icons) (MIT).
+3D item emoji in `public/emoji/`: [Fluent Emoji](https://github.com/microsoft/fluentui-emoji) (MIT).
+
 ## Backend (lives in Supabase, not in this repo)
 
 Tables `households`, `household_members`, `grocery_items`, `push_subscriptions`; RPC `find_household_by_invite_code`; edge function `send-push`.

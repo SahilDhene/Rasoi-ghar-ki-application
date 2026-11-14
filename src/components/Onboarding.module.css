@@ -362,3 +362,20 @@
     font-size: 1.625rem;
   }
 }
+
+/* re-keyed per step, so each step slides in */
+.card {
+  animation: riseIn 0.35s var(--curve-decelerate);
+}
+
+.flowCard:active,
+.primaryBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}

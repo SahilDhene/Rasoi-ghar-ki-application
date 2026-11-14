@@ -1,76 +1,92 @@
+/* ── Fluent 2 design tokens, Rasoi orange as the brand colour ── */
 :root,
 [data-theme="dark"] {
+  color-scheme: dark;
   --color-primary: #ff6b35;
-  --color-primary-hover: #e85d29;
-  --color-primary-glow: rgba(255, 107, 53, 0.28);
-  --color-bg: #0a0a0f;
-  --color-surface: rgba(255, 255, 255, 0.04);
-  --color-surface-2: rgba(255, 255, 255, 0.07);
-  --color-elevated: #13131a;
-  --color-header-bg: rgba(10, 10, 15, 0.88);
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.16);
-  --color-text: rgba(255, 255, 255, 0.92);
-  --color-text-sub: rgba(255, 255, 255, 0.6);
-  --color-text-muted: rgba(255, 255, 255, 0.38);
-  --color-green: #34d399;
-  --color-green-bg: rgba(52, 211, 153, 0.1);
-  --color-green-border: rgba(52, 211, 153, 0.2);
-  --color-amber: #fbbf24;
-  --color-amber-bg: rgba(251, 191, 36, 0.1);
-  --color-amber-border: rgba(251, 191, 36, 0.2);
-  --color-red: #f87171;
-  --color-red-bg: rgba(248, 113, 113, 0.1);
-  --color-red-border: rgba(248, 113, 113, 0.2);
-  --bar-green: #34d399;
-  --bar-amber: #fbbf24;
-  --bar-red: #f87171;
-  --bar-track: rgba(255, 255, 255, 0.08);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.05);
-  --shadow-dropdown: 0 8px 32px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.06);
-  --shadow-fab: 0 6px 24px var(--color-primary-glow);
+  --color-primary-hover: #f25a22;
+  --color-primary-pressed: #d94c18;
+  --color-primary-glow: rgba(255, 107, 53, 0.24);
+  --color-bg: #1f1f1f;
+  --color-surface: #292929;
+  --color-surface-2: #333333;
+  --color-elevated: #2e2e2e;
+  --color-header-bg: rgba(31, 31, 31, 0.72);
+  --color-border: #3d3d3d;
+  --color-border-hover: #5c5c5c;
+  --color-text: #ffffff;
+  --color-text-sub: #d6d6d6;
+  --color-text-muted: #adadad;
+  --color-green: #54b054;
+  --color-green-bg: #052505;
+  --color-green-border: #107c10;
+  --color-amber: #f2c661;
+  --color-amber-bg: #3d2a00;
+  --color-amber-border: #946b00;
+  --color-red: #e37d80;
+  --color-red-bg: #3b0509;
+  --color-red-border: #a4262c;
+  --bar-green: #54b054;
+  --bar-amber: #eaa300;
+  --bar-red: #e37d80;
+  --bar-track: #3d3d3d;
+  --shadow-card: 0 0 2px rgba(0, 0, 0, 0.24), 0 2px 4px rgba(0, 0, 0, 0.28);
+  --shadow-card-hover: 0 0 2px rgba(0, 0, 0, 0.24), 0 8px 16px rgba(0, 0, 0, 0.28);
+  --shadow-dropdown: 0 0 8px rgba(0, 0, 0, 0.24), 0 14px 28px rgba(0, 0, 0, 0.28);
+  --shadow-fab: 0 0 2px rgba(0, 0, 0, 0.24), 0 8px 16px rgba(0, 0, 0, 0.28);
 }
 
 [data-theme="light"] {
+  color-scheme: light;
   --color-primary: #ff6b35;
-  --color-primary-hover: #e85d29;
+  --color-primary-hover: #f25a22;
+  --color-primary-pressed: #d94c18;
   --color-primary-glow: rgba(255, 107, 53, 0.2);
-  --color-bg: #f0f0f5;
+  --color-bg: #f5f5f5;
   --color-surface: #ffffff;
-  --color-surface-2: rgba(0, 0, 0, 0.04);
+  --color-surface-2: #f5f5f5;
   --color-elevated: #ffffff;
-  --color-header-bg: rgba(240, 240, 245, 0.88);
-  --color-border: rgba(0, 0, 0, 0.09);
-  --color-border-hover: rgba(0, 0, 0, 0.18);
-  --color-text: #111111;
-  --color-text-sub: #444444;
-  --color-text-muted: #888888;
-  --color-green: #059669;
-  --color-green-bg: rgba(5, 150, 105, 0.08);
-  --color-green-border: rgba(5, 150, 105, 0.22);
-  --color-amber: #b45309;
-  --color-amber-bg: rgba(180, 83, 9, 0.08);
-  --color-amber-border: rgba(180, 83, 9, 0.22);
-  --color-red: #dc2626;
-  --color-red-bg: rgba(220, 38, 38, 0.08);
-  --color-red-border: rgba(220, 38, 38, 0.22);
-  --bar-green: #10b981;
-  --bar-amber: #f59e0b;
-  --bar-red: #ef4444;
-  --bar-track: rgba(0, 0, 0, 0.1);
-  --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
-  --shadow-dropdown: 0 8px 32px rgba(0, 0, 0, 0.14),
-    0 0 0 1px rgba(0, 0, 0, 0.08);
-  --shadow-fab: 0 6px 24px var(--color-primary-glow);
+  --color-header-bg: rgba(250, 250, 250, 0.72);
+  --color-border: #e0e0e0;
+  --color-border-hover: #c7c7c7;
+  --color-text: #242424;
+  --color-text-sub: #424242;
+  --color-text-muted: #707070;
+  --color-green: #0e700e;
+  --color-green-bg: #f1faf1;
+  --color-green-border: #9fd89f;
+  --color-amber: #835b00;
+  --color-amber-bg: #fefbf4;
+  --color-amber-border: #f2c661;
+  --color-red: #b10e1c;
+  --color-red-bg: #fdf3f4;
+  --color-red-border: #eeacb2;
+  --bar-green: #107c10;
+  --bar-amber: #eaa300;
+  --bar-red: #d13438;
+  --bar-track: #e0e0e0;
+  --shadow-card: 0 0 2px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.14);
+  --shadow-card-hover: 0 0 2px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.14);
+  --shadow-dropdown: 0 0 8px rgba(0, 0, 0, 0.12), 0 14px 28px rgba(0, 0, 0, 0.14);
+  --shadow-fab: 0 0 2px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.14);
 }
 
 :root {
-  --radius: 16px;
-  --radius-sm: 10px;
+  --radius: 8px;
+  --radius-sm: 4px;
   --radius-pill: 999px;
-  --font: "Inter", system-ui, -apple-system, sans-serif;
+  --font: "Segoe UI Variable Text", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue",
+    "Noto Sans Devanagari", "Nirmala UI", sans-serif;
+
+  /* Fluent motion */
+  --dur-faster: 100ms;
+  --dur-fast: 150ms;
+  --dur-normal: 200ms;
+  --dur-gentle: 250ms;
+  --dur-slow: 300ms;
+  --curve-decelerate: cubic-bezier(0.1, 0.9, 0.2, 1);
+  --curve-accelerate: cubic-bezier(0.9, 0.1, 1, 0.2);
+  --curve-easy: cubic-bezier(0.33, 0, 0.67, 1);
+  --curve-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 *,
@@ -91,7 +107,7 @@ body {
   font-family: var(--font);
   font-size: 15px;
   line-height: 1.5;
-  letter-spacing: -0.01em;
+  letter-spacing: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
@@ -138,4 +154,73 @@ textarea {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Respect the OS "reduce motion" setting */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Fluent icons: Regular → Filled on hover / focus / "fi-on", press squish ── */
+.fi {
+  display: inline-flex;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  transition: transform var(--dur-normal) var(--curve-decelerate);
+}
+
+.fi > svg {
+  width: 1em;
+  height: 1em;
+  transition: opacity var(--dur-fast) var(--curve-easy);
+}
+
+.fi > .fi-f {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+:is(button, [role="button"]):is(:hover, :focus-visible):not(:disabled) .fi > .fi-f,
+.fi-on > .fi-f {
+  opacity: 1;
+}
+
+:is(button, [role="button"]):is(:hover, :focus-visible):not(:disabled) .fi > .fi-r,
+.fi-on > .fi-r {
+  opacity: 0;
+}
+
+:is(button, [role="button"]):active:not(:disabled) .fi {
+  transform: scale(0.84);
+  transition-duration: var(--dur-faster);
+}
+
+/* Fluent keyboard focus ring */
+:is(button, [role="button"], a):focus-visible {
+  outline: 2px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+/* 3D Fluent emoji images behave like an emoji glyph */
+.emoji-img {
+  display: inline-block;
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.2em;
+  object-fit: contain;
+  transition: transform var(--dur-gentle) var(--curve-spring);
+}
+
+:is(button, [role="button"]):hover .emoji-img {
+  transform: scale(1.15) rotate(-6deg);
 }

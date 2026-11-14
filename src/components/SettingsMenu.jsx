@@ -77,10 +77,10 @@ export default function SettingsMenu({ user, role, household, onSignOut }) {
             <span className={s.sectionLabel}>{t('theme')}</span>
             <div className={s.themeToggle}>
               <button className={`${s.themeBtn} ${theme === 'dark' ? s.themeActive : ''}`} onClick={setDark}>
-                <MoonIcon size={14} /> {t('dark')}
+                <MoonIcon size={14} className={theme === 'dark' ? 'fi-on' : ''} /> {t('dark')}
               </button>
               <button className={`${s.themeBtn} ${theme === 'light' ? s.themeActive : ''}`} onClick={setLight}>
-                <SunIcon size={14} /> {t('light')}
+                <SunIcon size={14} className={theme === 'light' ? 'fi-on' : ''} /> {t('light')}
               </button>
             </div>
           </div>

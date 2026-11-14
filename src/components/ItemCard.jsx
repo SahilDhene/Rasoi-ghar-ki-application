@@ -1,32 +1,29 @@
 import { useEffect, useState } from 'react'
 import { useLang } from '../lib/i18n'
 import StockBar from './StockBar'
+import Emoji from './Emoji'
+import { categoryLabel, getCategory } from '../lib/categories'
 import {
-  AlertCircleIcon, CartIcon, CheckCircleIcon, CupIcon, DropletIcon, FlameIcon, LayersIcon,
-  LeafIcon, MinusIcon, PackageIcon, PencilIcon, PlusIcon, TrashIcon, XCircleIcon,
+  AlertCircleIcon, AppleIcon, BottleIcon, BowlIcon, BoxIcon, CartIcon, CheckCircleIcon, CupIcon, DiyaIcon,
+  DropletIcon, FlameIcon, LayersIcon, LeafIcon, MinusIcon, PackageIcon, PencilIcon, PlusIcon,
+  SparkleIcon, TrashIcon, XCircleIcon,
 } from './Icons'
 import s from './ItemCard.module.css'
 
+// Shown when the item has no emoji
 const CATEGORY_ICONS = {
   Vegetables: LeafIcon,
+  Fruits: AppleIcon,
   Dairy: DropletIcon,
   Grains: LayersIcon,
+  Pulses: BowlIcon,
   Spices: FlameIcon,
-  Beverages: CupIcon,
+  Oil: BottleIcon,
   Snacks: PackageIcon,
-  Other: PackageIcon,
-  General: CartIcon,
-}
-
-const CATEGORY_COLORS = {
-  Vegetables: { bg: 'rgba(52,211,153,0.12)', color: '#34d399' },
-  Dairy: { bg: 'rgba(96,165,250,0.12)', color: '#60a5fa' },
-  Grains: { bg: 'rgba(251,191,36,0.12)', color: '#fbbf24' },
-  Spices: { bg: 'rgba(248,113,113,0.12)', color: '#f87171' },
-  Beverages: { bg: 'rgba(167,139,250,0.12)', color: '#a78bfa' },
-  Snacks: { bg: 'rgba(251,146,60,0.12)', color: '#fb923c' },
-  Other: { bg: 'rgba(148,163,184,0.12)', color: '#94a3b8' },
-  General: { bg: 'rgba(148,163,184,0.12)', color: '#94a3b8' },
+  Beverages: CupIcon,
+  Pooja: DiyaIcon,
+  Cleaning: SparkleIcon,
+  Other: BoxIcon,
 }
 
 const STATUS = {
@@ -40,7 +37,7 @@ function stockStatus(quantity, max) {
   return quantity / max <= 0.25 ? 'low' : 'stocked'
 }
 
-export default function ItemCard({ item, role, onUpdateQuantity, onUpdateNote, onDelete }) {
+export default function ItemCard({ item, index = 0, role, onUpdateQuantity, onUpdateNote, onDelete }) {
   const { t } = useLang()
   const { id, emoji, name, category, quantity, max_quantity, unit, note } = item
   const status = stockStatus(quantity, max_quantity)
@@ -68,21 +65,21 @@ export default function ItemCard({ item, role, onUpdateQuantity, onUpdateNote, o
     }
   }
 
-  const CategoryIcon = CATEGORY_ICONS[category] ?? CATEGORY_ICONS.General
-  const colors = CATEGORY_COLORS[category] ?? CATEGORY_COLORS.General
+  const CategoryIcon = CATEGORY_ICONS[category] ?? CartIcon
+  const colors = getCategory(category)
 
   return (
-    <div className={s.card}>
+    <div className={s.card} style={{ '--i': index }}>
       <div className={s.top}>
         <div className={s.catIcon} style={{ background: colors.bg, color: colors.color }}>
-          {emoji && emoji !== '🛒' ? <span className={s.emoji}>{emoji}</span> : <CategoryIcon size={20} />}
+          {emoji && emoji !== '🛒' ? <span className={s.emoji}><Emoji char={emoji} /></span> : <CategoryIcon size={20} />}
         </div>
         <div className={s.info}>
           <span className={s.name}>{name}</span>
-          <span className={s.category}>{category}</span>
+          <span className={s.category}>{categoryLabel(t, category)}</span>
         </div>
         <span className={`${s.tag} ${s[status]}`}>
-          <StatusIcon size={11} />
+          <StatusIcon size={12} className="fi-on" />
           {t(labelKey)}
         </span>
       </div>

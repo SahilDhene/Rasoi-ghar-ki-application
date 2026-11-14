@@ -10,14 +10,14 @@ export default function SortToggle({ sortMode, onSortChange }) {
         className={`${s.btn} ${sortMode === 'status' ? s.active : ''}`}
         onClick={() => onSortChange('status')}
       >
-        <SortStatusIcon size={15} />
+        <SortStatusIcon size={15} className={sortMode === 'status' ? 'fi-on' : ''} />
         <span>{t('sort_status')}</span>
       </button>
       <button
         className={`${s.btn} ${sortMode === 'alpha' ? s.active : ''}`}
         onClick={() => onSortChange('alpha')}
       >
-        <SortAlphaIcon size={15} />
+        <SortAlphaIcon size={15} className={sortMode === 'alpha' ? 'fi-on' : ''} />
         <span>{t('sort_alpha')}</span>
       </button>
     </div>

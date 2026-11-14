@@ -338,9 +338,167 @@
   --shadow: none;
 }
 
+.quickAdd {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quickHint {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.chips {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background 0.15s;
+}
+
+.chip:hover {
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+}
+
+.chipActive,
+.chipActive:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: var(--color-surface-2);
+}
+
+.tabs {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.75rem 1rem 0;
+  flex-shrink: 0;
+}
+
+.kiranaBody {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.emojiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 0.4rem;
+}
+
+.emojiTile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.55rem 0.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: var(--color-surface-2);
+  min-width: 0;
+  transition:
+    border-color 0.15s,
+    transform 0.1s;
+}
+
+.emojiTile:hover {
+  border-color: var(--color-primary);
+  transform: scale(1.04);
+}
+
+.tileEmoji {
+  font-size: 1.625rem;
+  line-height: 1;
+}
+
+.tileName {
+  font-size: 0.6875rem;
+  color: var(--color-text-muted);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .pickerLoading {
   padding: 3rem;
   text-align: center;
   font-size: 0.875rem;
   color: var(--color-text-muted);
+}
+
+/* ── motion ── */
+.overlay,
+.pickerOverlay {
+  animation: fadeIn 0.18s ease;
+}
+
+.modal,
+.pickerSheet {
+  animation: sheetUp 0.3s var(--curve-decelerate);
+}
+
+.kiranaBody,
+.pickerBody em-emoji-picker {
+  animation: fadeIn 0.2s ease;
+}
+
+.chip,
+.saveBtn,
+.cancelBtn {
+  transition:
+    border-color 0.15s,
+    color 0.15s,
+    background 0.15s,
+    box-shadow 0.15s,
+    transform 0.12s;
+}
+
+.chip:active,
+.emojiTile:active,
+.cancelBtn:active,
+.saveBtn:active:not(:disabled) {
+  transform: scale(0.96);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes sheetUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
 }

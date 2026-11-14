@@ -4,7 +4,7 @@ import { supabase } from '../lib/supabase'
 function friendlyError(err) {
   if (!err) return 'Something went wrong.'
   if (err.code === '23505') return 'This item already exists.'
-  if (err.code === '23514') return 'Invalid value — check the quantity.'
+  if (err.code === '23514') return 'Invalid value — check the quantity or category.'
   if (err.code === '42501' || err.code === '42000') return 'Permission denied.'
   return 'Something went wrong. Please try again.'
 }

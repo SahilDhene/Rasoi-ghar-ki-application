@@ -217,3 +217,17 @@
     min-width: calc(100vw - 2rem);
   }
 }
+
+/* gear turns like Windows Settings */
+.trigger :global(.fi) {
+  transition: transform var(--dur-slow) var(--curve-decelerate);
+}
+
+.trigger:hover :global(.fi),
+.triggerOpen :global(.fi) {
+  transform: rotate(90deg);
+}
+
+.themeBtn:hover :global(.fi) {
+  transform: rotate(-15deg) scale(1.1);
+}

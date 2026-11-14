@@ -65,10 +65,11 @@ export default function Dashboard({ role, householdId }) {
         </div>
       ) : (
         <div className={s.grid}>
-          {visible.map((item) => (
+          {visible.map((item, i) => (
             <ItemCard
               key={item.id}
               item={item}
+              index={i}
               role={role}
               onUpdateQuantity={updateQuantity}
               onUpdateNote={updateNote}
@@ -89,7 +90,9 @@ export default function Dashboard({ role, householdId }) {
         </button>
       )}
 
-      {showAdd && <AddItemModal onAdd={addItem} onClose={() => setShowAdd(false)} />}
+      {showAdd && (
+        <AddItemModal onAdd={addItem} onClose={() => setShowAdd(false)} existingNames={items.map((i) => i.name)} />
+      )}
       {showShopping && (
         <ShoppingMode items={needToBuy} onUpdateQuantity={updateQuantity} onClose={() => setShowShopping(false)} />
       )}
