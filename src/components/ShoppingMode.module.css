@@ -5,8 +5,6 @@
   bottom: 0;
   left: 0;
   background: #00000080;
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
   z-index: 200;
   display: flex;
   align-items: flex-end;
@@ -262,4 +260,11 @@
   from {
     opacity: 0;
   }
+}
+
+/* swipes inside the sheet stop at its edge instead of scrolling the page behind */
+.overlay,
+.sheet,
+.list {
+  overscroll-behavior: contain;
 }

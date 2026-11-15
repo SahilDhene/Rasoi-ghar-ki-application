@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useLang } from '../lib/i18n'
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { CheckCircleIcon, CloseIcon, MinusIcon, PlusIcon } from './Icons'
 import Emoji from './Emoji'
 import s from './ShoppingMode.module.css'
@@ -12,6 +13,7 @@ export default function ShoppingMode({ items, onUpdateQuantity, onClose }) {
     Object.fromEntries(items.map((i) => [i.id, i.max_quantity - i.quantity])),
   )
   const [saving, setSaving] = useState(false)
+  useLockBodyScroll()
   const [done, setDone] = useState(false)
 
   function step(id, delta, max) {

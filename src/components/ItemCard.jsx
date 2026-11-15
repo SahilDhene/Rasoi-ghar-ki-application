@@ -41,14 +41,6 @@ export default function ItemCard({ item, index = 0, role, onUpdateQuantity, onUp
   const { labelKey, Icon: StatusIcon } = STATUS[status]
   const [editingNote, setEditingNote] = useState(false)
   const [draft, setDraft] = useState(note ?? '')
-  // delete needs a second tap within 3s — one stray tap shouldn't wipe an item for the whole family
-  const [deleteArmed, setDeleteArmed] = useState(false)
-
-  useEffect(() => {
-    if (!deleteArmed) return
-    const timer = setTimeout(() => setDeleteArmed(false), 3000)
-    return () => clearTimeout(timer)
-  }, [deleteArmed])
 
   // keep draft in sync with realtime updates while not editing
   useEffect(() => {
@@ -140,13 +132,8 @@ export default function ItemCard({ item, index = 0, role, onUpdateQuantity, onUp
             >
               <PlusIcon size={14} />
             </button>
-            <button
-              className={`${s.ctrlBtn} ${s.deleteBtn} ${deleteArmed ? s.deleteArmed : ''}`}
-              onClick={() => (deleteArmed ? onDelete(id) : setDeleteArmed(true))}
-              aria-label={deleteArmed ? t('confirm_delete') : 'Delete'}
-              title={deleteArmed ? t('confirm_delete') : undefined}
-            >
-              <TrashIcon size={14} className={deleteArmed ? 'fi-on' : ''} />
+            <button className={`${s.ctrlBtn} ${s.deleteBtn}`} onClick={() => onDelete(item)} aria-label="Delete">
+              <TrashIcon size={14} />
             </button>
           </div>
         )}

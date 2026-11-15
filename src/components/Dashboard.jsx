@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLang } from '../lib/i18n'
 import { useGroceryItems } from '../hooks/useGroceryItems'
 import { STATUS_RANK, stockStatus } from '../lib/stock'
@@ -41,14 +41,52 @@ export default function Dashboard({ role, householdId }) {
       }
     }
 
-  const needToBuy = useMemo(() => items.filter((i) => status(i) !== 'stocked'), [items])
+  // Delete with undo: one tap hides the item; the real delete is sent after 5 s unless undone.
+  // It's also sent right away if the app goes to the background or another item is deleted.
+  const [pendingDelete, setPendingDelete] = useState(null)
+  const deleteRef = useRef(deleteItem)
+  deleteRef.current = deleteItem
+  const pendingRef = useRef(null)
+  pendingRef.current = pendingDelete
+
+  const commitDelete = (item) => deleteRef.current(item.id).catch((e) => setToast(e.message))
+
+  function requestDelete(item) {
+    if (pendingRef.current) commitDelete(pendingRef.current)
+    setPendingDelete(item)
+  }
+
+  useEffect(() => {
+    if (!pendingDelete) return
+    const flush = () => {
+      commitDelete(pendingDelete)
+      setPendingDelete(null)
+    }
+    const timer = setTimeout(flush, 5000)
+    const onHide = () => document.visibilityState === 'hidden' && flush()
+    document.addEventListener('visibilitychange', onHide)
+    return () => {
+      clearTimeout(timer)
+      document.removeEventListener('visibilitychange', onHide)
+    }
+  }, [pendingDelete])
+
+  // leaving the dashboard (e.g. sign out) still completes a pending delete
+  useEffect(() => () => pendingRef.current && commitDelete(pendingRef.current), [])
+
+  const liveItems = useMemo(
+    () => (pendingDelete ? items.filter((i) => i.id !== pendingDelete.id) : items),
+    [items, pendingDelete],
+  )
+
+  const needToBuy = useMemo(() => liveItems.filter((i) => status(i) !== 'stocked'), [liveItems])
 
   const visible = useMemo(() => {
-    const list = filter === 'all' ? [...items] : items.filter((i) => status(i) === filter)
+    const list = filter === 'all' ? [...liveItems] : liveItems.filter((i) => status(i) === filter)
     if (sortMode === 'status') list.sort((a, b) => STATUS_RANK[status(a)] - STATUS_RANK[status(b)])
     else list.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
     return list
-  }, [items, filter, sortMode])
+  }, [liveItems, filter, sortMode])
 
   if (loading)
     return (
@@ -69,8 +107,8 @@ export default function Dashboard({ role, householdId }) {
 
       {visible.length === 0 ? (
         <div className={s.emptyState}>
-          <p className={s.emptyTitle}>{items.length === 0 ? t('no_items_yet') : t('no_items_filter')}</p>
-          {items.length === 0 && role === 'mom' && <p className={s.emptySub}>{t('no_items_sub')}</p>}
+          <p className={s.emptyTitle}>{liveItems.length === 0 ? t('no_items_yet') : t('no_items_filter')}</p>
+          {liveItems.length === 0 && role === 'mom' && <p className={s.emptySub}>{t('no_items_sub')}</p>}
         </div>
       ) : (
         <div className={s.grid}>
@@ -82,7 +120,7 @@ export default function Dashboard({ role, householdId }) {
               role={role}
               onUpdateQuantity={reportErrors(updateQuantity)}
               onUpdateNote={reportErrors(updateNote)}
-              onDelete={reportErrors(deleteItem)}
+              onDelete={requestDelete}
             />
           ))}
         </div>
@@ -110,11 +148,21 @@ export default function Dashboard({ role, householdId }) {
         />
       )}
 
-      {toast && (
-        <div className={s.toast} role="alert">
-          {toast}
-        </div>
-      )}
+      <div className={s.toastStack}>
+        {toast && (
+          <div className={s.toast} role="alert">
+            {toast}
+          </div>
+        )}
+        {pendingDelete && (
+          <div key={pendingDelete.id} className={`${s.toast} ${s.undoToast}`} role="status">
+            <span>{t('item_deleted', { name: pendingDelete.name })}</span>
+            <button className={s.undoBtn} onClick={() => setPendingDelete(null)}>
+              {t('undo')}
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

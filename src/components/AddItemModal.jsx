@@ -1,6 +1,7 @@
 import { lazy, Suspense, useState } from 'react'
 import { useTheme } from '../lib/theme'
 import { useLang } from '../lib/i18n'
+import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { CATEGORIES, UNITS, categoryLabel } from '../lib/categories'
 import { KIRANA_EMOJIS, itemName, searchCatalog } from '../lib/catalog'
 import { CloseIcon, PlusIcon } from './Icons'
@@ -21,12 +22,16 @@ export default function AddItemModal({ onAdd, onClose, existingNames = [] }) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
 
+  useLockBodyScroll()
+
   const set = (field, value) => setForm((f) => ({ ...f, [field]: value }))
 
   // empty search → popular items in the selected category
   const suggestions = searchCatalog(quickQuery, { category: form.category, exclude: existingNames })
 
   function pickCatalogItem(item) {
+    // close the phone keyboard first, so the form updates once in its final layout
+    if (document.activeElement instanceof HTMLInputElement) document.activeElement.blur()
     setEmoji(item.emoji)
     setForm((f) => ({
       ...f,

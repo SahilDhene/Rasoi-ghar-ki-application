@@ -262,14 +262,3 @@
   letter-spacing: normal;
   font-size: 0.75rem;
 }
-
-.deleteArmed,
-.deleteArmed:hover {
-  background: var(--color-red);
-  border-color: var(--color-red);
-  color: #fff;
-}
-
-.deleteArmed :global(.fi) {
-  animation: wiggle 0.4s var(--curve-easy);
-}

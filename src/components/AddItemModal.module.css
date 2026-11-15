@@ -4,9 +4,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: #0000008c;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -251,8 +249,6 @@
   bottom: 0;
   left: 0;
   background: #00000080;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -501,4 +497,17 @@
     opacity: 0;
     transform: translateY(24px);
   }
+}
+
+/* swipes inside the sheet stop at its edge instead of scrolling the page behind */
+.overlay,
+.modal,
+.pickerOverlay,
+.pickerBody,
+.kiranaBody {
+  overscroll-behavior: contain;
+}
+
+.chips {
+  overscroll-behavior-x: contain;
 }

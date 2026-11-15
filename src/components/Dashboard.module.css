@@ -143,13 +143,23 @@
   }
 }
 
-/* Fluent-style error toast */
-.toast {
+/* Fluent-style toasts (errors + undo), stacked above the FAB */
+.toastStack {
   position: fixed;
   left: 50%;
   bottom: 6.5rem;
   transform: translateX(-50%);
+  width: max-content;
   max-width: min(92vw, 420px);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  z-index: 300;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
   padding: 0.7rem 1rem;
   border-radius: var(--radius);
   background: var(--color-red-bg);
@@ -158,13 +168,34 @@
   font-size: 0.875rem;
   font-weight: 500;
   box-shadow: var(--shadow-dropdown);
-  z-index: 300;
   animation: toastIn var(--dur-slow) var(--curve-decelerate);
+}
+
+.undoToast {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-text);
+  border-color: transparent;
+  color: var(--color-bg);
+}
+
+.undoBtn {
+  margin-left: auto;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  transition: background var(--dur-fast) var(--curve-easy);
+}
+
+.undoBtn:hover {
+  background: rgba(255, 107, 53, 0.15);
 }
 
 @keyframes toastIn {
   from {
     opacity: 0;
-    transform: translate(-50%, 12px);
+    transform: translateY(12px);
   }
 }
